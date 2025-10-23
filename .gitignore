@@ -1,0 +1,17 @@
+# Môi trường ảo
+venv/
+.venv/
+
+# File cache của Python
+__pycache__/
+*.pyc
+
+# Thư mục cấu hình IDE
+.idea/
+
+# File hệ điều hành
+.DS_Store
+
+# Thư mục Output
+# Chúng ta không đẩy dữ liệu đã xử lý lên, chỉ đẩy code
+output/
