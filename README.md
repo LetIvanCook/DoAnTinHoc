@@ -1,35 +1,51 @@
 # BÁO CÁO TIẾN ĐỘ DỰ ÁN (PISA 2018)
 
 **Thành viên:** Lư Vĩnh An
-**Ngày:** 24/10/2025
+**Ngày:** 27/10/2025
 
 ---
 
-## 1. Công việc đã hoàn thành
+## 📌 Tuần 1: Khởi động & Làm quen Công cụ
 
-Trong tuần này, em đã hoàn thành các mục tiêu sau:
-
-* Thiết lập môi trường làm việc với PyCharm và kết nối thành công dự án với repository trên GitHub.
-* Viết script Python (`main.py` / `process_csv.py`) để xử lý file dữ liệu PISA 2018.
-* **Chức năng đọc file:** Script đã có thể đọc file `filtered_australia_pisa_2018.csv` bằng thư viện `csv` (sử dụng `csv.DictReader`).
+### 1. ✅ Công việc đã hoàn thành
+* Thiết lập môi trường làm việc với **PyCharm** và kết nối thành công dự án với **GitHub**.
+* Viết script (`tuan_1_doc_ghi_csv.py`) để xử lý file dữ liệu PISA 2018.
+* **Chức năng đọc file:** Script đã có thể đọc file `.csv` bằng thư viện `csv` (sử dụng `csv.DictReader`).
 * **Chức năng xử lý/lọc:** Đã triển khai logic để lọc dữ liệu (ví dụ: chỉ giữ lại các hàng có `W_FSTUWT_SCH_SUM` > 400).
-* **Chức năng ghi file:** Script ghi thành công dữ liệu đã lọc ra một file CSV mới (`processed_data.csv`).
-* **Quản lý code:** Đã cấu hình file `.gitignore` để bỏ qua các file dữ liệu `.csv` và đẩy source code `.py` lên GitHub.
+* **Chức năng ghi file:** Script ghi thành công dữ liệu đã lọc ra một file CSV mới.
+* **Quản lý code:** Đã cấu hình file `.gitignore` và đẩy source code lên GitHub.
 
-## 2. Vấn đề gặp phải
+### 2. ⚠️ Vấn đề gặp phải & Giải pháp
+* **Vấn đề:** Gặp lỗi `"Repository not found"` do cấu hình sai URL của remote 'origin'.
+* **Giải pháp:** Đã sử dụng lệnh `git remote set-url` để cập nhật lại đúng URL.
 
-* [Ví dụ: Ban đầu gặp lỗi "Repository not found" do cấu hình sai URL của remote 'origin'.]
-* [Ví dụ: Mất thời gian để xử lý các hàng có dữ liệu trống/thiếu trong file CSV.]
+---
 
-**Giải pháp:**
-* [Ví dụ: Đã sử dụng lệnh `git remote set-url` để cập nhật lại đúng URL của repository.]
-* [Ví dụ: Đã thêm các câu lệnh kiểm tra (try-except) khi chuyển đổi dữ liệu sang số (float).]
+## 📌 Tuần 2: Xây dựng Cấu trúc Dữ liệu (CTDL)
 
-## 3. Kế hoạch tuần tới
+### 1. ✅ Công việc đã hoàn thành
+* **Chọn đề tài:** Quyết định đề tài chính là "Quản lý và Phân tích Dữ liệu PISA 2018 bằng Cây Nhị phân Tìm kiếm (BST)".
+* **Tái cấu trúc thư mục:** Sắp xếp lại dự án, tạo thư mục `data/` (để chứa file CSV gốc) và `output/` (để chứa các file kết quả).
+* **Code CTDL (Yêu cầu chính):** Viết code `tuan_2_cay_nhi_phan.py` bao gồm:
+    * `class Node`: Để lưu trữ `key` (điểm số) và `data` (toàn bộ thông tin hàng của học sinh).
+    * `class BinarySearchTree`: Chứa logic của Cây, bao gồm hàm `insert()` đệ quy.
+* **Xây dựng Cây:** Code đã đọc thành công file `data/filtered_australia_pisa_2018.csv` và chèn 763 học sinh vào Cây BST (sử dụng cột `W_FSTUWT_SCH_SUM` làm khóa).
+* **Ghi file (Yêu cầu chính):** Đã lưu thành công **Cấu trúc Dữ liệu Cây** (chứ không phải file CSV) ra 2 định dạng theo yêu cầu:
+    1.  **File Text:** `output/pisa_tree.json` (sử dụng `json.dump()`).
+    2.  **File Nhị phân:** `output/pisa_tree.bin` (sử dụng `pickle.dump()`).
 
-* [Ví dụ: Bắt đầu phân tích sâu hơn về dữ liệu đã lọc.]
-* [Ví dụ: Bổ sung thêm các tiêu chí lọc phức tạp hơn.]
-* [Ví dụ: Thử trực quan hóa dữ liệu bằng thư viện Matplotlib.]
+### 2. ⚠️ Vấn đề gặp phải & Giải pháp
+* **Vấn đề:** Lỗi `TypeError: '<' not supported between 'float' and 'str'` khi Cây cố gắng so sánh một số (key) với một chuỗi rỗng (`""`) từ file CSV.
+* **Giải pháp:** Sửa hàm `main` để lọc triệt để. Code sẽ kiểm tra `if key_value_str == ""` *trước*, và chỉ gọi hàm `bst.insert(key, row)` nếu `key` là một số (float) hợp lệ.
+* **Vấn đề:** Lỗi `FileNotFoundError` sau khi tái cấu trúc thư mục.
+* **Giải pháp:** Sửa code để dùng `os.path.join(INPUT_DIR, ...)` để trỏ chính xác vào file `data/filtered_australia_pisa_2018.csv`.
+* **Vấn đề:** Lỗi Git `CONFLICT (modify/delete)` khi `git pull` do file `main.py` cũ bị xung đột.
+* **Giải pháp:** Dùng `git rm main.py` để giải quyết xung đột, sau đó `git commit` và `git push` thành công.
+
+### 3. 🚀 Kế hoạch tuần tới
+* Bắt đầu xây dựng **Giao diện Người dùng (GUI)** bằng thư viện **Tkinter**.
+* Tạo các nút bấm (`Load Data`, `Xu Ly Data`, `Ghi File`) để gọi các hàm đã viết ở Tuần 2.
+* Hiển thị dữ liệu CSV lên một Bảng (`ttk.Treeview`) bên trong cửa sổ ứng dụng.
 
 ## Source Code (main.py)
 ```python 
